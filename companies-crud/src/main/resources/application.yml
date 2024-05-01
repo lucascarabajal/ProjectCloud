@@ -1,13 +1,33 @@
-spring.application.name=companies-crud
+spring:
+  application:
+    name: companies-crud
+  datasource:
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+    password: root
+    url: jdbc:postgresql://localhost:5432/companies
+    username: admin
 
-spring.datasource.url=jdbc:postgresql://localhost:5432/companies
-spring.datasource.username=admin
-spring.datasource.password=root
-spring.datasource.hikari.connection-timeout=20000
-spring.datasource.hikari.maximum-pool-size=5
+server:
+  port: 8081
+  servlet:
+    context-path: /companies-crud
 
-logging.level.org.hibernate.SQL=DEBUG
-logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
 
-server.servlet.context-path=/companies-crud
-server.port=0
+
+eureka:
+  instance:
+    instance-id: "${spring.application.name}:${random.value}"
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
